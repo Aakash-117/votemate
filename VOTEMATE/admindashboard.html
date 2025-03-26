@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Reported Issues</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('admin.jpg');
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    td input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+      background-color: #fff;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Dashboard - Reported Issues</h1>
+    
+    <!-- Table for reported issues -->
+    <table>
+      <thead>
+        <tr>
+          <th>Issue Title</th>
+          <th>Reported By</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Reported At</th>
+        </tr>
+      </thead>
+      <tbody id="issues-list">
+        <!-- Dynamically generated issue rows will appear here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:5000/api/problem'; // Endpoint to fetch reported issues
+
+    // Function to fetch and display reported issues
+    async function fetchIssues() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error('Failed to fetch issues');
+        }
+        const issues = await response.json();
+
+        const issuesList = document.getElementById('issues-list');
+        issuesList.innerHTML = ''; // Clear the list before appending new issues
+
+        if (issues.length === 0) {
+          issuesList.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; color: #777;">No issues reported yet.</td>
+            </tr>
+          `;
+        } else {
+          issues.forEach(issue => {
+            const issueRow = document.createElement('tr');
+            issueRow.innerHTML = `
+              <td><input type="text" value="${problem.issueTitle || 'N/A'}" readonly /></td>
+              <td><input type="text" value="${problem.reported_by || 'N/A'}" readonly /></td>
+              <td><input type="text" value="${problem.status || 'N/A'}" readonly /></td>
+              <td><input type="text" value="${problem.description || 'N/A'}" readonly /></td>
+              <td><input type="text" value="${problem.scheme_name || 'N/A'}" readonly /></td>
+              <td><input type="date" value="${problem.department || 'N/A'}" readonly /></td>
+            `;
+            issuesList.appendChild(issueRow);
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching issues:', error);
+        const issuesList = document.getElementById('issues-list');
+        issuesList.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; color: red;">Error loading issues. Please try again later.</td>
+          </tr>
+        `;
+      }
+    }
+
+    // Fetch issues on page load
+    fetchIssues();
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('signin.jpg');
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function handleRegistration(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const age = document.getElementById('age').value;
+    const password = document.getElementById('password').value;
+    
+    const userId = Math.floor(Math.random() * 10000); 
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('age', age);
+    localStorage.setItem('password', password);
+    localStorage.setItem('userId', userId); 
+
+    alert(`Registration successful! Your User ID: ${userId}`);
+    window.location.href = 'login.html';
+}
+
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+    <form onsubmit="handleRegistration(event);">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="repassword">Re-enter Password:</label>
+            <input type="password" id="repassword" name="repassword" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .user-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const username = localStorage.getItem('username');
+            const userId = localStorage.getItem('userId');
+            const age = localStorage.getItem('age');
+
+            if (!username || !userId || !age) {
+                alert("No user data found. Redirecting to login.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('user-name').textContent = username;
+            document.getElementById('user-id').textContent = userId;
+            document.getElementById('user-age').textContent = age;
+        });
+
+        function logout() {
+            localStorage.clear();
+            alert("Logged out successfully.");
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Welcome to Your Dashboard</h2>
+    <div class="user-info">
+        <p><strong>Username:</strong> <span id="user-name"></span></p>
+        <p><strong>User ID:</strong> <span id="user-id"></span></p>
+        <p><strong>Age:</strong> <span id="user-age"></span></p>
+    </div>
+    <button onclick="logout()">Logout</button>
+</div>
+
+</body>
+</html>

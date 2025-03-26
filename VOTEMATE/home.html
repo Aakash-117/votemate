@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VoteMate – Your Voice, Your Future. Secure and convenient voting for all citizens.">
+  <meta name="keywords" content="voting, elections, VoteMate, secure voting, online voting">
+  <meta name="author" content="VoteMate">
+  <title>VoteMate – Your Voice, Your Future</title>
+  <link rel="icon" type="image/png" href="logo2vote.png">
+  <link rel="apple-touch-icon" href="logo2vote.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #FF9933;
+      color: #fff;
+    }
+    header img { height: 50px; margin-right: 10px; }
+    header nav ul { display: flex; gap: 20px; }
+    header select { padding: 5px; border-radius: 5px; }
+    .hero {
+      background-image: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+      background-size: cover;
+      background-position: center;
+      padding: 100px 20px;
+      text-align: center;
+      color: #000;
+    }
+    .hero h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+    .hero button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #0365ce;
+      color: #fff;
+      border-radius: 5px;
+      margin: 5px;
+    }
+    .features {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: #fff;
+    }
+    .features h2 {
+      color: #1b0888;
+      margin-bottom: 40px;
+      font-size: 2rem;
+    }
+    .feature-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .feature-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 22%;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .feature-card h3 {
+      color: #1b0888;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    .feature-card p {
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .elections {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: #e6f0ff;
+    }
+    .elections h2 { color: #1b0888; }
+    .elections ul { padding: 0; }
+    .elections li { margin: 10px 0; }
+    .elections a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #FF9933;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    footer a { margin: 0 10px; }
+    footer img { height: 30px; margin: 10px; }
+    @media (max-width: 768px) {
+      header { flex-direction: column; text-align: center; }
+      header nav ul { flex-direction: column; gap: 10px; }
+      .feature-card { width: 100%; margin-bottom: 20px; }
+    }
+    .chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0365ce;
+      color: #fff;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .chatbot-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    .chatbot-icon::before {
+      content: "💬";
+      font-size: 24px;
+    }
+    .chat-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+   .report-icon {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color: #d20a0a;
+      color: #fff;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .report-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    .report-icon::before {
+      content: "❕";
+      font-size: 24px;
+    }
+    .report-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <img src="logo2vote.png" alt="VoteMate Logo">
+      <h1>VoteMate</h1>
+    </div>
+    <nav id="nav-links">
+      <ul>
+        <li><a href="#" aria-label="Home">Home</a></li>
+        <li><a href="#" aria-label="About VoteMate">About VoteMate</a></li>
+        <li><a href="howtovote.html" aria-label="How to Vote">How to Vote</a></li>
+        <li><a href="signin.html" aria-label="Voter Registration">VoteMate Registration</a></li>
+        <li><a href="#" aria-label="Election Dates">Election Dates</a></li>
+        <li><a href="#" aria-label="FAQs">FAQs</a></li>
+        <li><a href="#" aria-label="Contact Us">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div>
+      <select aria-label="Language Selector">
+        <option value="en">English</option>
+      </select>
+    </div>
+  </header>
+  <section class="hero">
+    <div>
+      <h2>Make Your Vote Count – Anytime, Anywhere</h2>
+      <p>VoteMate ensures a secure and convenient voting experience for all citizens.</p>
+      <div>
+        <button onclick="openEligibilityWindow()">Check your eligibility</button>
+        <button onclick="showPollingPopup()">Find Polling Stations</button>
+      </div>
+    </div>
+  </section>
+  <section class="features">
+    <h2>Why Choose VoteMate?</h2>
+    <div class="feature-cards">
+      <div class="feature-card">
+        <h3>Secure Voting</h3>
+        <p>Your vote is encrypted and protected with state-of-the-art security.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Accessible Voting</h3>
+        <p>Vote from home, a polling station, or on the go.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Transparent Process</h3>
+        <p>Real-time tracking and verification for every vote.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Easy Registration</h3>
+        <p>Register online in just a few minutes.</p>
+      </div>
+    </div>
+  </section>
+  <section class="elections">
+    <h2>Upcoming Elections</h2>
+    <ul>
+      <li>Lok Sabha Elections – April 2024</li>
+      <li>State Assembly Elections – October 2024</li>
+    </ul>
+    <a href="#" aria-label="Get Reminders">Get Reminders</a>
+  </section>
+  <footer>
+    <div>
+      <a href="#" aria-label="Privacy Policy">Privacy Policy</a>
+      <a href="#" aria-label="Terms of Service">Terms of Service</a>
+      <a href="#" aria-label="Accessibility Statement">Accessibility Statement</a>
+      <a href="#" aria-label="Report an Issue">Report an Issue</a>
+    </div>
+    <div>
+      <p>Phone: 7569007014</p>
+      <p>Email: info@votemate.gov</p>
+    </div>
+    <div>
+      <a href="#" aria-label="Facebook"><img src="fblogo.jpg" alt="Facebook"></a>
+      <a href="#" aria-label="Twitter"><img src="twitterlogo.png" alt="Twitter"></a>
+      <a href="https://www.instagram.com/j_aakash_117/?next=%2F" aria-label="Instagram"><img src="iglogo.webp" alt="Instagram"></a>
+    </div>
+    <p>© 2025 VoteMate. All rights reserved.</p>
+  </footer>
+  <!-- Chatbot Icon -->
+  <div class="chatbot-icons">
+    <div class="chatbot-icon" onclick="openChat()" title="Chat with us"></div>
+  </div>
+  <script>
+    // JavaScript to toggle the menu
+    function toggleMenu() {
+      const navLinks = document.getElementById("nav-links");
+      navLinks.classList.toggle("active");
+    }
+
+    // JavaScript to open the chatbot
+    function openChat() {
+      const chatWindow = window.open("chatbot.html", "Chat", "width=400,height=600");
+      if (!chatWindow) {
+        alert("Please allow pop-ups to use the chatbot.");
+      }
+    }
+  </script>
+  <div class="report-icons">
+    <div class="report-icon" onclick="openReport()" title="Report an Issue"></div>
+  </div>
+  <script>
+    // JavaScript to toggle the menu
+    function toggleMenu() {
+      const navLinks = document.getElementById("nav-links");
+      navLinks.classList.toggle("active");
+    }
+
+    // JavaScript to open the report
+    function openReport() {
+      const chatWindow = window.open("report.html", "Chat", "width=400,height=600");
+      if (!chatWindow) {
+        alert("Please allow pop-ups to use the issue.");
+      }
+    }
+    </script>
+    <div id="pollingPopup" class="popup-container" style="display: none;">
+        <div class="popup-content">
+            <p>Polling station details are coming soon!</p>
+            <button onclick="closePollingPopup()">OK</button>
+        </div>
+    </div>    
+    <script>
+    function showPollingPopup() {
+    alert("Polling stations out of service!! ");
+    }
+    function showPollingPopup() {
+    document.getElementById('pollingPopup').style.display = 'flex';
+}
+
+function closePollingPopup() {
+    document.getElementById('pollingPopup').style.display = 'none';
+}
+
+  </script>
+  
+
+  <div id="eligibilityPopup" class="popup-container" style="display: none;">
+      <div class="popup-content">
+          <h3>Check Voting Eligibility</h3>
+          <input type="text" id="username" placeholder="Enter Username">
+          <input type="password" id="password" placeholder="Enter Password">
+          <button onclick="checkEligibility()">Submit</button>
+          <button onclick="closeEligibilityPopup()">Close</button>
+          <p id="eligibilityResult"></p>
+      </div>
+  </div>  
+  <script>
+    function openEligibilityWindow() {
+    document.getElementById("eligibilityPopup").style.display = "flex";
+}
+
+function closeEligibilityPopup() {
+    document.getElementById("eligibilityPopup").style.display = "none";
+}
+
+function checkEligibility() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    fetch("http://127.0.0.1:5000/check-eligibility", {  // Updated connection to Flask
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("eligibilityResult").innerText = data.message;
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+}
+
+</script>
+</body>
+</html>
+
